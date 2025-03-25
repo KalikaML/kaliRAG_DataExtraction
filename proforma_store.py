@@ -5,6 +5,7 @@ import os
 import logging
 import io
 import tempfile
+import streamlit as st
 from email.header import decode_header
 import toml
 from PyPDF2 import PdfReader, errors  # Fixed import
@@ -13,7 +14,7 @@ from PyPDF2 import PdfReader, errors  # Fixed import
 # from langchain.text_splitter import CharacterTextSplitter
 
 # Configuration constants
-SECRETS_FILE_PATH = os.path.join(os.getcwd(), "secrets.toml")
+# SECRETS_FILE_PATH = os.path.join(os.getcwd(), "secrets.toml")
 IMAP_SERVER = "imap.gmail.com"
 S3_BUCKET = "kalika-rag"
 S3_FOLDER = "proforma_invoice/"
@@ -21,7 +22,7 @@ S3_FOLDER = "proforma_invoice/"
 # EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # Load secrets from secrets.toml
-secrets = toml.load(SECRETS_FILE_PATH)
+# secrets = toml.load(SECRETS_FILE_PATH)
 
 # Set up logging
 logging.basicConfig(
@@ -33,8 +34,8 @@ logging.basicConfig(
 # Initialize S3 client
 s3_client = boto3.client(
     "s3",
-    aws_access_key_id=secrets["access_key_id"],
-    aws_secret_access_key=secrets["secret_access_key"],
+    aws_access_key_id=st.secrets["access_key_id"],
+    aws_secret_access_key=st.secrets["secret_access_key"],
 )
 
 
@@ -180,7 +181,7 @@ def process_proforma_emails():
     """Process emails with improved PDF validation and error handling."""
     try:
         with imaplib.IMAP4_SSL(IMAP_SERVER) as mail:
-            mail.login(secrets["gmail_uname"], secrets["gmail_pwd"])
+            mail.login(st.secrets["gmail_uname"], st.secrets["gmail_pwd"])
             logging.info("Email authentication successful")
 
             mail.select("inbox")
