@@ -1,0 +1,4 @@
+schedule
+threading
+boto3
+PyPDF2

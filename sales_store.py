@@ -13,7 +13,7 @@ from PyPDF2 import PdfReader, errors  # Fixed import
 # from langchain.text_splitter import CharacterTextSplitter
 
 # Configuration constants
-SECRETS_FILE_PATH = ".streamlit/secrets.toml"
+SECRETS_FILE_PATH = os.path.join(os.getcwd(), "secrets.toml")
 IMAP_SERVER = "imap.gmail.com"
 S3_BUCKET = "kalika-rag"
 S3_FOLDER = "sales/"
