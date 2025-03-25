@@ -31,7 +31,7 @@ def run_jobs():
 
 def run_scheduler():
     #run everyday at midnight 12:00 AM
-    schedule.every().day.at("16:10").do(run_jobs)
+    schedule.every().day.at("00:00").do(run_jobs)
     logging.info("Scheduler started...")
     while True:
         schedule.run_pending()
